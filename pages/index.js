@@ -51,15 +51,17 @@ const Home = ({ propertiesForSale, propertiesForRent }) => (
   </Box>
 );
 
-export async function getStaticProps() {
+export async function getStaticProps({params: {slug}}) {
   const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
   const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
 
+  console.log(`building slug: ${slug}`)
   return {
     props: {
       propertiesForSale: propertyForSale?.hits,
       propertiesForRent: propertyForRent?.hits,
     },
+
   };
 }
 
